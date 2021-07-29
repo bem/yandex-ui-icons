@@ -1,5 +1,4 @@
-import { parse } from 'svg-parser'
-import convertToBabelAst from '@svgr/hast-util-to-babel-ast'
+import { parse } from '@babel/parser'
 import { transformFromAstSync } from '@babel/core'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
@@ -7,8 +6,7 @@ import * as t from '@babel/types'
 import { format } from './formatter'
 
 export function convertSvgToJsx(svg: string, name: string) {
-  const hast = parse(svg)
-  const ast = convertToBabelAst(hast)
+  const ast = parse(svg, { plugins: ['jsx'] })
 
   prepareSvgJsxAst(ast)
 
