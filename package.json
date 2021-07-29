@@ -1,7 +1,55 @@
 {
   "name": "@yandex/ui-icons",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/yandex-ui-icons.git"
+  },
+  "author": {
+    "name": "Lego Team",
+    "email": "lego@yandex-team.ru"
+  },
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem/yandex-ui-icons/issues"
+  },
+  "homepage": "https://github.com/bem/yandex-ui-icons#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "figma:extract": "ts-node ./tools/figma-extractor/index.ts",
+    "start": "start-storybook -p 8100 --ci",
+    "storybook:build": "build-storybook",
+    "unit": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "7.14.8",
+    "@babel/traverse": "7.14.8",
+    "@babel/types": "7.14.8",
+    "@storybook/react": "6.3.6",
+    "@svgr/hast-util-to-babel-ast": "5.5.0",
+    "@testing-library/jest-dom": "5.14.1",
+    "@testing-library/react": "12.0.0",
+    "@types/babel-types": "7.0.10",
+    "@types/babel__core": "7.1.15",
+    "@types/babel__traverse": "7.14.2",
+    "@types/fs-extra": "9.0.12",
+    "@types/jest": "26.0.24",
+    "@types/node-fetch": "2.5.11",
+    "@types/prettier": "2.3.2",
+    "@types/react": "17.0.15",
+    "@types/svg-parser": "2.0.3",
+    "@types/svgo": "2.3.1",
+    "change-case": "4.1.2",
+    "fs-extra": "10.0.0",
+    "jest": "27.0.6",
+    "node-fetch": "2.6.1",
+    "prettier": "2.3.2",
+    "query-string": "7.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "svg-parser": "2.0.4",
+    "svgo": "2.3.1",
+    "ts-jest": "27.0.4",
+    "ts-node": "10.1.0",
+    "typescript": "4.3.5"
   }
 }
