@@ -34,6 +34,11 @@ export async function extractSvgFromFigma() {
   writeIndexFile(components)
 }
 
+interface Component {
+  name: string
+  meta: Meta
+}
+
 export async function fetchSvgComponents() {
   const response = await fetch(
     `https://api.figma.com/v1/files/${FIGMA_PROJECT}?ids=${FIGMA_DOCUMENT}`,
@@ -59,11 +64,6 @@ export async function fetchSvgComponents() {
       id: string
       children: FigmaChildren[]
     }
-  }
-
-  interface Component {
-    name: string
-    meta: Meta
   }
 
   const json: OkResponse = await response.json()
