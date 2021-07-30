@@ -20,18 +20,22 @@ export function convertSvgToJsx(svg: string, name: string) {
 function prepareSvgJsxAst(ast: any) {
   traverse(ast, {
     JSXOpeningElement: (path) => {
-      if (t.isJSXIdentifier(path.node.name) && path.node.name.name === 'svg') {
+      if (!t.isJSXIdentifier(path.node.name)) {
+        return
+      }
+
+      if (path.node.name.name === 'svg') {
         path.node.attributes = path.node.attributes.filter((attr) => {
           return t.isJSXAttribute(attr) && attr.name.name !== 'fill' && attr.name.name !== 'xmlns'
         })
 
         path.node.attributes = path.node.attributes.map((attr) => {
-          if (
-            t.isJSXAttribute(attr) &&
-            (attr.name.name === 'width' || attr.name.name === 'height')
-          ) {
-            attr.value = t.jsxExpressionContainer(t.identifier('size'))
+          if (t.isJSXAttribute(attr)) {
+            if (attr.name.name === 'width' || attr.name.name === 'height') {
+              attr.value = t.jsxExpressionContainer(t.identifier('size'))
+            }
           }
+
           return attr
         })
 
