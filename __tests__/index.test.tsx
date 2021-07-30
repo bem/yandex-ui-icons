@@ -10,6 +10,7 @@ describe('icon', () => {
   test('should have correct attrs', () => {
     render(<FirstIcon data-testid="icon" />)
     const icon = screen.getByTestId('icon')
+    expect(icon).toHaveAttribute('class', 'SvgIcon')
     expect(icon).toHaveAttribute('focusable', 'false')
     expect(icon).toHaveAttribute('aria-hidden', 'true')
   })
@@ -26,6 +27,12 @@ describe('icon', () => {
     const icon = screen.getByTestId('icon')
     expect(icon).toHaveAttribute('width', '12')
     expect(icon).toHaveAttribute('height', '12')
+  })
+
+  test('should set additional className for svg', () => {
+    render(<FirstIcon className="Icon" data-testid="icon" />)
+    const icon = screen.getByTestId('icon')
+    expect(icon).toHaveAttribute('class', 'SvgIcon Icon')
   })
 
   Object.entries(Icons).map(([name, Icon]) => {
