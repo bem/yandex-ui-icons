@@ -16,6 +16,8 @@ const headers = new Headers({
 })
 
 export async function extractSvgFromFigma() {
+  console.log('❯ Fetch compoents from figma')
+
   const components = await fetchSvgComponents()
   const urls = await fetchSvgUrl(Array.from(components.keys()))
 
@@ -29,9 +31,13 @@ export async function extractSvgFromFigma() {
       writeSvgFile(`${component.name}.tsx`, jsx),
       writeSvgFile(`${component.name}.svg`, source),
     ])
+
+    console.log('❯ Component fetched and created:', `${component.name}`)
   }
 
   writeIndexFile(components)
+
+  console.log('❯ Index created')
 }
 
 interface Component {
