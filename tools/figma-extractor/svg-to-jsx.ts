@@ -38,7 +38,20 @@ function prepareSvgJsxAst(ast: any) {
           t.jsxSpreadAttribute(t.identifier('otherProps')),
           t.jsxAttribute(t.jsxIdentifier('focusable'), t.stringLiteral('false')),
           t.jsxAttribute(t.jsxIdentifier('aria-hidden'), t.stringLiteral('true')),
-          t.jsxAttribute(t.jsxIdentifier('className'), t.stringLiteral('SvgIcon')),
+          t.jsxAttribute(
+            t.jsxIdentifier('className'),
+            t.jsxExpressionContainer(
+              t.binaryExpression(
+                '+',
+                t.stringLiteral('SvgIcon'),
+                t.conditionalExpression(
+                  t.identifier('className'),
+                  t.binaryExpression('+', t.stringLiteral(' '), t.identifier('className')),
+                  t.stringLiteral(''),
+                ),
+              ),
+            ),
+          ),
           t.jsxAttribute(t.jsxIdentifier('ref'), t.jsxExpressionContainer(t.identifier('ref'))),
         )
       }
