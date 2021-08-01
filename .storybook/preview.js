@@ -2,7 +2,7 @@ export const globalTypes = {
   size: {
     name: 'size',
     description: 'Icon size',
-    defaultValue: 24,
+    defaultValue: 32,
     toolbar: {
       icon: 'mirror',
       items: [

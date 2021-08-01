@@ -1,4 +1,5 @@
 import { Meta, Story } from '@storybook/react'
+import { capitalCase } from 'change-case'
 
 import * as Icons from '../src'
 import './styles.css'
@@ -15,7 +16,7 @@ export const Showcase: Story = (_, options) => {
       {Object.entries(Icons).map(([name, Icon]) => (
         <div className="Grid-Item" key={name}>
           <Icon size={size} />
-          <div className="Grid-Caption">{name}</div>
+          <div className="Grid-Caption">{capitalCase(name)}</div>
         </div>
       ))}
     </div>

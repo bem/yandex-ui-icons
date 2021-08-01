@@ -6,6 +6,8 @@
 }
 
 .Grid-Item {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -16,16 +18,30 @@
   height: 128px;
   padding: 32px 8px;
 
-  font-family: -apple-system, Arial, sans-serif;
-  font-size: 15px;
   cursor: pointer;
   user-select: none;
 
   color: #4e4f61;
   border-radius: 8px;
-  -webkit-font-smoothing: antialiased;
 }
 
 .Grid-Item:hover {
   background-color: #f7f8fa;
+}
+
+.Grid-Caption {
+  position: absolute;
+  bottom: 32px;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 8px;
+
+  font-family: -apple-system, Arial, sans-serif;
+  font-size: 13px;
+  text-align: center;
+
+  transform: translateY(50%);
+
+  -webkit-font-smoothing: antialiased;
 }
