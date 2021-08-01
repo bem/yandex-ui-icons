@@ -80,6 +80,7 @@ export async function fetchSvgComponents() {
   }
 
   const components = new Map<string, Component>()
+  const visited = new Map<string, number>()
 
   for (const child1 of page.children) {
     if (child1.type === 'COMPONENT_SET') {
@@ -90,10 +91,22 @@ export async function fetchSvgComponents() {
           // TODO: Temporary solution, pick only 24 size as baseline.
           if (meta.size === 24) {
             const name = createName(child1.name, meta.isOutline)
+
+            assertName(name, `❗️ Found unexpected symbols in name: ${name}`)
+
             components.set(child2.id, { meta, name })
+
+            let counter = visited.get(name) ?? 0
+            visited.set(name, ++counter)
           }
         }
       }
+    }
+  }
+
+  for (const [name, counter] of visited) {
+    if (counter > 1) {
+      console.log(`⚠️ Found name collision: ${name}`)
     }
   }
 
@@ -154,4 +167,10 @@ async function writeIndexFile(components: Map<string, Component>) {
   const content = format(exports.join('\n'))
 
   await writeFile(resolve(__dirname, '../../src/index.ts'), content)
+}
+
+function assertName(name: string, message: string) {
+  if (name.match(/_/)) {
+    console.log(message)
+  }
 }
