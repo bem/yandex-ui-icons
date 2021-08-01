@@ -26,7 +26,7 @@ function prepareSvgJsxAst(ast: any) {
 
       if (path.node.name.name === 'svg') {
         path.node.attributes = path.node.attributes.filter((attr) => {
-          return t.isJSXAttribute(attr) && attr.name.name !== 'fill' && attr.name.name !== 'xmlns'
+          return t.isJSXAttribute(attr) && attr.name.name !== 'xmlns'
         })
 
         path.node.attributes = path.node.attributes.map((attr) => {

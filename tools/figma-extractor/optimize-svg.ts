@@ -15,16 +15,12 @@ const plugins = extendDefaultPlugins([
     name: 'conver-fill',
     type: 'perItem',
     fn: (ast) => {
-      if (ast.name === 'svg') {
-        delete ast.attributes.fill
+      if (ast.name === 'path' && ast.attributes.fill !== undefined) {
+        ast.attributes.fill = 'currentColor'
       }
 
-      if (
-        ast.name === 'path' &&
-        ast.attributes.fill !== undefined &&
-        ast.attributes.fill !== 'currentColor'
-      ) {
-        ast.attributes.fill = 'currentColor'
+      if (ast.name === 'path' && ast.attributes.stroke !== undefined) {
+        ast.attributes.stroke = 'currentColor'
       }
     },
   },
