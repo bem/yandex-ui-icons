@@ -85,9 +85,9 @@ function template(props: { svg: string; name: string }) {
   const template = `
     /* This file was created automatically, don't change it manually. */
 
-    import React, { forwardRef } from 'react'
+    import React, { SVGAttributes, forwardRef } from 'react'
 
-    export interface ${name}Props {
+    export interface ${name}Props extends SVGAttributes<SVGSVGElement> {
       /**
        * Additional className for svg root
        */
