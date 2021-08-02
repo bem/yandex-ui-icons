@@ -92,7 +92,7 @@ export async function fetchSvgComponents() {
           if (meta.size === 24) {
             const name = createName(child1.name, meta.isOutline)
 
-            assertName(name, `❗️ Found unexpected symbols in name: ${name}`)
+            assertName(name, (name) => `❗️ Found unexpected symbols in name: ${name}`)
 
             components.set(child2.id, { meta, name })
 
@@ -104,11 +104,7 @@ export async function fetchSvgComponents() {
     }
   }
 
-  for (const [name, counter] of visited) {
-    if (counter > 1) {
-      console.log(`⚠️ Found name collision: ${name}`)
-    }
-  }
+  assertCollisions(visited, (name) => `⚠️ Found name collision: ${name}`)
 
   return components
 }
@@ -169,8 +165,16 @@ async function writeIndexFile(components: Map<string, Component>) {
   await writeFile(resolve(__dirname, '../../src/index.ts'), content)
 }
 
-function assertName(name: string, message: string) {
+function assertName(name: string, fn: (name: string) => string) {
   if (name.match(/_/)) {
-    console.log(message)
+    console.log(fn(name))
+  }
+}
+
+function assertCollisions(visited: Map<string, number>, fn: (name: string) => string) {
+  for (const [name, counter] of visited) {
+    if (counter > 1) {
+      console.log(fn(name))
+    }
   }
 }
