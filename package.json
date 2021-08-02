@@ -15,6 +15,7 @@
   },
   "homepage": "https://github.com/bem/yandex-ui-icons#readme",
   "scripts": {
+    "build": "pack build",
     "figma:extract": "ts-node ./tools/figma-extractor/index.ts",
     "start": "start-storybook -p 8100 --ci",
     "storybook:build": "build-storybook",
@@ -25,6 +26,7 @@
     "@babel/parser": "7.14.8",
     "@babel/traverse": "7.14.8",
     "@babel/types": "7.14.8",
+    "@bem-react/pack": "1.5.1",
     "@storybook/addon-essentials": "6.3.6",
     "@storybook/react": "6.3.6",
     "@testing-library/jest-dom": "5.14.1",
