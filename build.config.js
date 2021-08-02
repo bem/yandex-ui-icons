@@ -31,7 +31,9 @@ module.exports = {
     ]),
 
     usePackageJsonPlugin({
+      module: './esm/index.js',
       scripts: {},
+      sideEffects: false,
     }),
   ],
 }
