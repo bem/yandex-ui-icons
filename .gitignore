@@ -127,6 +127,7 @@ $RECYCLE.BIN/
 
 ### Project ###
 # Build artifacts
+.cache
 storybook-static
 dist
 

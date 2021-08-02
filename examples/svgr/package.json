@@ -1,0 +1,14 @@
+{
+  "name": "svgr",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "devDependencies": {
+    "@svgr/parcel-plugin-svgr": "5.5.0",
+    "parcel-bundler": "1.12.5"
+  },
+  "alias": {
+    "@yandex/ui-icons": "../../src"
+  }
+}

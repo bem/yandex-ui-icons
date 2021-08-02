@@ -1,0 +1,7 @@
+.Search {
+  width: 24px;
+  height: 24px;
+  background-size: 100%;
+  /* In real project can be imported from "@yandex/ui-icons/Search.svg" */
+  background-image: url("../../src/Search.svg");
+}
