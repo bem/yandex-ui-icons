@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 import { capitalCase } from 'change-case'
 
-import * as Icons from '../src'
+import * as Icons from '../index'
 import './styles.css'
 
 export default {
@@ -20,7 +20,7 @@ export const Showcase: Story = (_, options) => {
               display: 'block',
               height: size,
               width: size,
-              backgroundImage: `url(${require(`../src/${name}.svg`)})`,
+              backgroundImage: `url(${require(`../${name}.svg`)})`,
               backgroundSize: '100%',
             }}
           />

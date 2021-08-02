@@ -1,7 +1,7 @@
 import { createRef } from 'react'
 import { render, screen } from '@testing-library/react'
 
-import * as Icons from '../src'
+import * as Icons from '../index'
 
 // @ts-expect-error
 const FirstIcon = Icons[Object.keys(Icons)[0]]

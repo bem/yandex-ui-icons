@@ -16,7 +16,7 @@ const headers = new Headers({
 })
 
 export async function extractSvgFromFigma() {
-  console.log('❯ Fetch compoents from figma')
+  console.log('❯ Fetch components from figma')
 
   const components = await fetchSvgComponents()
   const urls = await fetchSvgUrl(Array.from(components.keys()))

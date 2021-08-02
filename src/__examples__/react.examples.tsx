@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 import { capitalCase } from 'change-case'
 
-import * as Icons from '../src'
+import * as Icons from '../index'
 import './styles.css'
 
 export default {
