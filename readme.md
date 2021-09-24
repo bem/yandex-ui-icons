@@ -24,7 +24,7 @@ export const App = () => {
 
 **Set size**
 
-Now available next sizes: `12`, `16`, `24`, `32` (default `24`).
+Icons has next sizes: `12`, `16`, `24`, `32` (default `24`).
 
 ```tsx
 import { Search } from '@yandex/ui-icons'
@@ -41,7 +41,7 @@ import { useRef } from 'react'
 import { Search } from '@yandex/ui-icons'
 
 export const App = () => {
-  const iconRef = useRef<SVGSVGElement(null)
+  const iconRef = useRef<SVGSVGElement>(null)
 
   return <Search ref={iconRef} />
 }
