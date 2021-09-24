@@ -3,13 +3,15 @@ import { resolve } from 'path'
 import fetch, { Headers } from 'node-fetch'
 import qs from 'query-string'
 
-import { Meta, parseMeta } from './parse-meta'
-import { createName } from './create-name'
+import { FigmaChildren, parseComponents, Component } from './parse-components'
 import { optimizeSvg } from './optimize-svg'
 import { convertSvgToJsx } from './svg-to-jsx'
 import { format } from './formatter'
+import dotenv from 'dotenv'
 
-const { FIGMA_TOKEN, FIGMA_PROJECT, FIGMA_DOCUMENT } = process.env
+dotenv.config()
+
+const { FIGMA_TOKEN = '', FIGMA_PROJECT, FIGMA_DOCUMENT } = process.env
 
 const headers = new Headers({
   'X-Figma-Token': FIGMA_TOKEN,
@@ -40,12 +42,14 @@ export async function extractSvgFromFigma() {
   console.log('❯ Index created')
 }
 
-interface Component {
-  name: string
-  meta: Meta
-}
-
 export async function fetchSvgComponents() {
+  interface OkResponse {
+    document: {
+      id: string
+      children: FigmaChildren[]
+    }
+  }
+
   const response = await fetch(
     `https://api.figma.com/v1/files/${FIGMA_PROJECT}?ids=${FIGMA_DOCUMENT}`,
     {
@@ -58,55 +62,13 @@ export async function fetchSvgComponents() {
     throw new Error(`Unexpected response: ${response.statusText}.`)
   }
 
-  interface FigmaChildren {
-    id: string
-    name: string
-    type: 'COMPONENT_SET' | 'COMPONENT'
-    children: FigmaChildren[]
-  }
-
-  interface OkResponse {
-    document: {
-      id: string
-      children: FigmaChildren[]
-    }
-  }
-
   const json: OkResponse = await response.json()
   const page = json.document.children.find((child) => child.id === FIGMA_DOCUMENT)
 
   if (!page) {
     throw new Error(`Cannot find page: ${FIGMA_DOCUMENT}.`)
   }
-
-  const components = new Map<string, Component>()
-  const visited = new Map<string, number>()
-
-  for (const child1 of page.children) {
-    if (child1.type === 'COMPONENT_SET') {
-      for (const child2 of child1.children) {
-        if (child2.type === 'COMPONENT') {
-          const meta = parseMeta(child2.name)
-
-          // TODO: Temporary solution, pick only 24 size as baseline.
-          if (meta.size === 24) {
-            const name = createName(child1.name, meta.isOutline)
-
-            assertName(name, (name) => `❗️ Found unexpected symbols in name: ${name}`)
-
-            components.set(child2.id, { meta, name })
-
-            let counter = visited.get(name) ?? 0
-            visited.set(name, ++counter)
-          }
-        }
-      }
-    }
-  }
-
-  assertCollisions(visited, (name) => `⚠️ Found name collision: ${name}`)
-
-  return components
+  return parseComponents(page)
 }
 
 async function fetchSvgUrl(ids: string[]) {
@@ -163,18 +125,4 @@ async function writeIndexFile(components: Map<string, Component>) {
   const content = format(exports.join('\n'))
 
   await writeFile(resolve(__dirname, '../../src/index.ts'), content)
-}
-
-function assertName(name: string, fn: (name: string) => string) {
-  if (name.match(/_/)) {
-    console.log(fn(name))
-  }
-}
-
-function assertCollisions(visited: Map<string, number>, fn: (name: string) => string) {
-  for (const [name, counter] of visited) {
-    if (counter > 1) {
-      console.log(fn(name))
-    }
-  }
 }

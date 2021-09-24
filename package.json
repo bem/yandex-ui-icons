@@ -48,6 +48,7 @@
     "@types/svg-parser": "2.0.3",
     "@types/svgo": "2.3.1",
     "change-case": "4.1.2",
+    "dotenv": "^10.0.0",
     "fast-glob": "3.2.7",
     "fs-extra": "10.0.0",
     "jest": "27.0.6",
