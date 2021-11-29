@@ -22,7 +22,7 @@
     "figma:extract": "ts-node ./tools/figma-extractor/index.ts",
     "publish": "npm run build && npm publish ./dist",
     "start": "start-storybook -p 8100 --ci",
-    "storybook:build": "build-storybook",
+    "storybook:build": "build-storybook --quiet",
     "unit": "jest"
   },
   "devDependencies": {
